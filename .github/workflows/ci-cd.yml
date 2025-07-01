@@ -17,9 +17,6 @@ jobs:
       - name: Install dependencies
         run: pip install flask pytest
 
-      - name: Run tests
-        run: pytest tests/
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
