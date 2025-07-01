@@ -1,20 +1,13 @@
 # Flask-Web-App
 CI/CD pipeline for a simple Python Flask web app
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 1. Set Up a Basic Flask Web App
 
 Create a folder named Web app or any, then open it in VSC, and inside open terminal then install flask:
-
 pip install flask
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Then inside create a app.py
-
 Create app.py:
--------------------------------------------------
+--------------------
 from flask import Flask
 
 app = Flask(__name__)
@@ -25,14 +18,11 @@ def home():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
--------------------------------------------------
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+--------------------
 
 Test locally:
 python app.py
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 2. Create a GitHub Repository & Push the Code
 
@@ -47,14 +37,12 @@ git commit -m "Initial commit"
 
 git branch -M main
 
-git remote add origin <repo-url>
+git remote add origin <your-repo-url>
 
 git push -u origin main
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 3. Set Up GitHub Actions for CI/CD
-
 
 Create .github/workflows/ci-cd.yml
 -----------------------------------
@@ -72,7 +60,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.8"
+          python-version: '3.8'
 
       - name: Install dependencies
         run: pip install flask pytest
@@ -84,26 +72,27 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy
+      - name: Deploy (Example: Docker)
         run: echo "Deploying to server..."
+-----------------------------------
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-4. Deploy Using Docker
+4. Bonus: Deploy Using Docker
 
 Create Dockerfile:
 ---------------------
 FROM python:3.8
+
 WORKDIR /app
+
 COPY . .
+
 RUN pip install -r requirements.txt
+
 CMD ["python", "app.py"]
 ---------------------
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 Build & run:
-docker build -t flaskwebapp .
-docker run -p 5000:5000 flaskwebapp
+docker build -t flask-app .
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+docker run -p 5000:5000 flask-app
